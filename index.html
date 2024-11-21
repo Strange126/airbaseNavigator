@@ -146,7 +146,7 @@
           (position) => {
             const userLat = position.coords.latitude;
             const userLng = position.coords.longitude;
-            const map = L.map("map").setView([userLat, userLng], 30);
+
             userCircle.setLatLng([userLat, userLng]);
 
             // Check if user is inside any of the polygons
