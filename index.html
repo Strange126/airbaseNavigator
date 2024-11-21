@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Navigator</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+      #map {
+        height: 100vh;
+      }
+
+      /* Default flashing effect hidden */
+      body.flashing::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        animation: flash 1s infinite;
+        z-index: 9999; /* Ensure it appears on top */
+        pointer-events: none; /* Ensure it doesn't block interactions */
+      }
+
+      /* Flashing animation for blue */
+      /* body.flashing.blue::before {
+        animation: flash-blue 1s infinite;
+      } */
+
+      /* Flashing animation for red */
+      body.flashing.red::before {
+        animation: flash-red 1s infinite;
+      }
+
+      /* Flashing animation for orange */
+      body.flashing.orange::before {
+        animation: flash-orange 1s infinite;
+      }
+
+      /* Keyframes for blue flashing
+      @keyframes flash-blue {
+        0%,
+        100% {
+          box-shadow: 0 0 0 10px rgba(0, 0, 255, 0.5) inset;
+        }
+        50% {
+          box-shadow: 0 0 0 30px rgba(0, 0, 255, 0.2) inset;
+        }
+      } */
+
+      /* Keyframes for red flashing */
+      @keyframes flash-red {
+        0%,
+        100% {
+          box-shadow: 0 0 0 10px rgba(255, 0, 0, 0.5) inset;
+        }
+        50% {
+          box-shadow: 0 0 0 30px rgba(255, 0, 0, 0.2) inset;
+        }
+      }
+
+      /* Keyframes for orange flashing */
+      @keyframes flash-orange {
+        0%,
+        100% {
+          box-shadow: 0 0 0 10px rgba(255, 165, 0, 0.5) inset;
+        }
+        50% {
+          box-shadow: 0 0 0 30px rgba(255, 165, 0, 0.2) inset;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      // Initialize the map
+      const map = L.map("map").setView([1.34632, 103.9012], 18);
+
+      // Add OpenStreetMap tiles
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "© OpenStreetMap contributors",
+      }).addTo(map);
+
+      // Define the red boundary
+      const redBoundary = L.polygon(
+        [
+          [1.34503, 103.90091],
+          [1.34418, 103.9011],
+          [1.34284, 103.90059],
+          [1.3426, 103.90119],
+          [1.34209, 103.90135],
+          [1.34185, 103.90199],
+          [1.34155, 103.90281],
+          [1.3441, 103.90421],
+          [1.3785, 103.91906],
+          [1.3791, 103.91622],
+          [1.37809, 103.91483],
+          [1.36376, 103.90885],
+          [1.36256, 103.90821],
+          [1.36282, 103.9066],
+          [1.35128, 103.90158],
+          [1.34701, 103.90158],
+        ],
+        {
+          color: "red",
+          weight: 2,
+          fillOpacity: 0.1,
+        }
+      ).addTo(map);
+
+      // Define the orange boundary
+      const orangeBoundary = L.polygon(
+        [
+          [1.34822, 103.89859],
+          [1.34756, 103.89856],
+          [1.34632, 103.9012],
+          [1.34696, 103.90144],
+        ],
+        {
+          color: "orange",
+          weight: 2,
+          fillOpacity: 0.1,
+        }
+      ).addTo(map);
+
+      // Create a circle marker for the user's location
+      const userCircle = L.circleMarker([0, 0], {
+        radius: 12, // Size of the circle
+        color: "#4285F4", // Outer circle color (blue)
+        fillColor: "#ffffff", // Inner color (white)
+        weight: 3, // Border width
+        opacity: 1, // Border opacity
+        fillOpacity: 1, // Fill opacity
+      }).addTo(map);
+
+      let alertActive = false; // Prevent multiple alerts
+
+      // Track user location
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(
+          (position) => {
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+            const map = L.map("map").setView([userLat, userLng], 30);
+            userCircle.setLatLng([userLat, userLng]);
+
+            // Check if user is inside any of the polygons
+            const userPoint = [userLat, userLng];
+
+            // Check if user is inside blue, red, or orange boundaries
+            // if (blueBoundary.getBounds().contains(userPoint)) {
+            //   if (!alertActive) {
+            //     alertActive = true; // Activate alert
+            //     document.body.classList.add("flashing", "blue"); // Start flashing blue edges
+            //     const alertInterval = setInterval(() => {
+            //       // Recheck location
+            //       if (blueBoundary.getBounds().contains(userPoint)) {
+            //         //alert('You are inside the blue boundary!');
+            //       } else {
+            //         clearInterval(alertInterval); // Stop alerts if outside
+            //         alertActive = false; // Reset the flag
+            //         document.body.classList.remove("flashing", "blue"); // Stop flashing blue edges
+            //       }
+            //     }, 5000); // Alert every 5 seconds
+            //   }
+            // } 
+            if (redBoundary.getBounds().contains(userPoint)) {
+              if (!alertActive) {
+                alertActive = true; // Activate alert
+                document.body.classList.add("flashing", "red"); // Start flashing red edges
+                const alertInterval = setInterval(() => {
+                  // Recheck location
+                  if (redBoundary.getBounds().contains(userPoint)) {
+                    //alert('You are inside the red boundary!');
+                  } else {
+                    clearInterval(alertInterval); // Stop alerts if outside
+                    alertActive = false; // Reset the flag
+                    document.body.classList.remove("flashing", "red"); // Stop flashing red edges
+                  }
+                }, 5000); // Alert every 5 seconds
+              }
+            } else if (orangeBoundary.getBounds().contains(userPoint)) {
+              if (!alertActive) {
+                alertActive = true; // Activate alert
+                document.body.classList.add("flashing", "orange"); // Start flashing orange edges
+                const alertInterval = setInterval(() => {
+                  // Recheck location
+                  if (orangeBoundary.getBounds().contains(userPoint)) {
+                    //alert('You are inside the orange boundary!');
+                  } else {
+                    clearInterval(alertInterval); // Stop alerts if outside
+                    alertActive = false; // Reset the flag
+                    document.body.classList.remove("flashing", "orange"); // Stop flashing orange edges
+                  }
+                }, 5000); // Alert every 5 seconds
+              }
+            } else {
+              alertActive = false; // Reset alert if outside
+              document.body.classList.remove(
+                "flashing",
+                "blue",
+                "red",
+                "orange"
+              ); // Stop flashing
+            }
+          },
+          (error) => {
+            switch (error.code) {
+              case error.PERMISSION_DENIED:
+                alert(
+                  "Location access was denied. Please enable location permissions."
+                );
+                break;
+              case error.POSITION_UNAVAILABLE:
+                alert(
+                  "Location information is unavailable. Check your GPS settings."
+                );
+                break;
+              case error.TIMEOUT:
+                alert(
+                  "The request to get your location timed out. Please try again."
+                );
+                break;
+              default:
+                alert(
+                  "An unknown error occurred while accessing your location."
+                );
+            }
+          }
+        );
+      } else {
+        alert("Geolocation is not supported by your browser.");
+      }
+    </script>
+  </body>
+</html>
