@@ -1,0 +1,144 @@
+#map {
+  height: 100vh;
+}
+
+body.flashing::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  animation: flash 1s infinite;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+body.flashing.red::before {
+  animation: flash-red 1s infinite;
+}
+
+body.flashing.orange::before {
+  animation: flash-orange 1s infinite;
+}
+
+body.flashing.green::before {
+  animation: flash-green 1s infinite;
+}
+
+body.flashing.blue::before {
+  animation: flash-blue 1s infinite;
+}
+
+body.flashing.yellow::before {
+  animation: flash-yellow 1s infinite;
+}
+
+body.flashing.purple::before {
+  animation: flash-purple 1s infinite;
+}
+
+body.flashing.pink::before {
+  animation: flash-pink 1s infinite;
+}
+
+@keyframes flash-red {
+  0%,
+  100% {
+    box-shadow: 0 0 0 10px rgba(255, 0, 0, 0.5) inset;
+  }
+  50% {
+    box-shadow: 0 0 0 100px rgba(255, 0, 0, 0.2) inset;
+  }
+}
+
+@keyframes flash-orange {
+  0%,
+  100% {
+    box-shadow: 0 0 0 10px rgba(255, 165, 0, 0.5) inset;
+  }
+  50% {
+    box-shadow: 0 0 0 100px rgba(255, 165, 0, 0.2) inset;
+  }
+}
+
+@keyframes flash-green {
+  0%,
+  100% {
+    box-shadow: 0 0 0 10px rgba(0, 255, 0, 0.5) inset;
+  }
+  50% {
+    box-shadow: 0 0 0 100px rgba(0, 255, 0, 0.2) inset;
+  }
+}
+
+@keyframes flash-blue {
+  0%,
+  100% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 255, 0.5) inset;
+  }
+  50% {
+    box-shadow: 0 0 0 100px rgba(0, 0, 255, 0.2) inset;
+  }
+}
+
+@keyframes flash-yellow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 10px rgba(255, 255, 0, 0.5) inset;
+  }
+  50% {
+    box-shadow: 0 0 0 100px rgba(255, 255, 0, 0.2) inset;
+  }
+}
+
+@keyframes flash-purple {
+  0%,
+  100% {
+    box-shadow: 0 0 0 10px rgba(128, 0, 128, 0.5) inset;
+  }
+  50% {
+    box-shadow: 0 0 0 100px rgba(128, 0, 128, 0.2) inset;
+  }
+}
+
+@keyframes flash-pink {
+  0%,
+  100% {
+    box-shadow: 0 0 0 10px rgba(255, 105, 180, 0.5) inset;
+  }
+  50% {
+    box-shadow: 0 0 0 100px rgba(255, 105, 180, 0.2) inset;
+  }
+}
+/* Styling for the popup/modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  text-align: center;
+}
+.modal button {
+  margin: 10px;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.modal button:hover {
+  background-color: #45a049;
+}
