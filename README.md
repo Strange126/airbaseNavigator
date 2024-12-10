@@ -1,6 +1,6 @@
 # Using Google Maps My Maps to Draw Polygons, Customize, and Export
 
-This guide explains how to use Google Maps My Maps to draw polygons, customize them (name, color, description), and export them as CSV for further use.
+This guide explains how to use Google Maps My Maps to draw polygons, customize them (name, description), and export them as CSV for further use.
 
 ---
 
@@ -64,12 +64,12 @@ This guide explains how to use Google Maps My Maps to draw polygons, customize t
 
 ## Audio Integration
 - **Audio File**: The audio plays from a file named `warning.mp3` located in the `audio` folder.
-- **Customization**: Replace the `warning.mp3` file with another audio file of your choice remeber to name it as warning.mp3 . Ensure the replacement file is stored in the `audio` folder with the same name or update the reference accordingly.
+- **Customization**: Replace the `warning.mp3` file with another audio file of your choice remember to name it as `warning.mp3` . Ensure the replacement file is stored in the `audio` folder with the same name or update the reference accordingly.
 
 ---
 
 ## Tips
-- Use satellite view for precise polygon placement.
+- Use satellite view for precise polygon placement in the airfield.
 
 ---
 
