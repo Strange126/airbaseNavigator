@@ -96,7 +96,7 @@
       <p>Loading map and GPS... allow the application to use GPS</p>
     </div>
 
-    <div id="map"></div>
+    <div id="map" style="display: none;"></div>
 
     <audio id="boundary-audio" preload="auto">
       <source src="audio/warning.mp3" type="audio/mp3" />
@@ -118,7 +118,6 @@
           csvFiles.forEach((file) => processCSV(file, map, userCircle));
         });
       }
-      startMap() 
       // Handle user consent
       document.getElementById("allowAudio").addEventListener("click", () => {
         // Store user's consent in sessionStorage to avoid asking again
@@ -146,6 +145,9 @@
       // Function to start the application (loading + map)
       function startApp() {
         document.getElementById("consentModal").style.display = "none"; // Hide consent modal
+
+        // Start loading the map
+        startMap();
       }
 
       // Initialize the map and components
