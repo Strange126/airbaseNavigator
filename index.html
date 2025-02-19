@@ -177,18 +177,12 @@
           complete: function (results) {
             results.data.forEach((row) => {
               if (row.WKT && row.name) {
-                try {
                 const latLngs = parseWKTPolygon(row.WKT);
                 const polygon = L.polygon(latLngs, {
                   color: row.name,
                   weight: 2,
                   fillOpacity: 0.1,
                 }).addTo(map);
-              }
-              catch(e){
-                console.log(row.WKT, row.name)
-              }
-
                 // Track user location and check boundaries
                 navigator.geolocation.watchPosition(
                   (position) => {
