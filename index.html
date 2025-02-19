@@ -116,6 +116,7 @@
             `csv/SBAB.csv${randomQuery}`,
           ];
           csvFiles.forEach((file) => processCSV(file, map, userCircle));
+          showMap();
         });
       }
       // Handle user consent
@@ -190,7 +191,7 @@
           // Center the map on the user's location
           map.setView([userLat, userLng], 18); // Zoom level 18
           userCircle.setLatLng([userLat, userLng]); // Move the marker to user's location
-          showMap();
+          
         } catch (error) {
           console.error("Geolocation error:", error.message);
           console.log(
