@@ -115,8 +115,13 @@
             `csv/TAB.csv${randomQuery}`,
             `csv/SBAB.csv${randomQuery}`,
           ];
-          csvFiles.forEach((file) => processCSV(file, map, userCircle));
-          showMap();
+          csvFiles.forEach((file) => {
+            processCSV(file, map, userCircle)
+            if(file.includes("SBAB")) {
+              console.log(file)
+              showMap();
+            }
+          });
         });
       }
       // Handle user consent
