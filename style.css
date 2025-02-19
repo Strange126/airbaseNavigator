@@ -1,4 +1,6 @@
 #map {
+  display: none;
+  width: 100%;
   height: 100vh;
 }
 
@@ -40,6 +42,10 @@ body.flashing.purple::before {
 
 body.flashing.pink::before {
   animation: flash-pink 1s infinite;
+}
+
+body.flashing.black::before {
+  animation: flash-black 1s infinite;
 }
 
 @keyframes flash-red {
@@ -109,6 +115,24 @@ body.flashing.pink::before {
   }
   50% {
     box-shadow: 0 0 0 100px rgba(255, 105, 180, 0.2) inset;
+  }
+}
+
+@keyframes flash-cyan {
+  0%, 100% {
+    box-shadow: 0 0 0 10px rgba(0, 255, 255, 0.5) inset;
+  }
+  50% {
+    box-shadow: 0 0 0 100px rgba(0, 255, 255, 0.2) inset;
+  }
+}
+
+@keyframes flash-black {
+  0%, 100% {
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.5) inset;
+  }
+  50% {
+    box-shadow: 0 0 0 100px rgba(255, 255, 255, 0.2) inset;
   }
 }
 /* Styling for the popup/modal */
